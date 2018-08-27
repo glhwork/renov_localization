@@ -5,6 +5,7 @@ find_package(catkin REQUIRED
   roscpp
   rospy
   std_msgs
+  Eigen
 )
 
 include_directories(
@@ -13,4 +14,5 @@ include_directories(
 )
 
 
-add_executable(${PROJECT_NAME}_kalman_filter src/Localization.cpp)
+add_executable(${PROJECT_NAME}_main src/main.cpp)
+add_executable(${PROJECT_NAME}_trila_main src/trila_main.cpp)
