@@ -30,3 +30,7 @@ add_executable(${PROJECT_NAME}_trila_test
   src/trila_test.cpp
   src/Trilateration.cpp
 )
+target_link_libraries(${PROJECT_NAME}_trila_test
+  test_lib
+  ${catkin_LIBRARIES}
+)
