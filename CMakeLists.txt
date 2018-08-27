@@ -7,6 +7,10 @@ find_package(catkin REQUIRED
   std_msgs
 )
 
-include_directories(include)
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
 
-add_executable(${PROJECT_NAME}_kalman_filter src/kalman_filter.cpp)
+
+add_executable(${PROJECT_NAME}_kalman_filter src/Localization.cpp)
