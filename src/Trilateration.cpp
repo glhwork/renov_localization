@@ -1,10 +1,19 @@
 #include "renov_localization/Trilateration.h"
+#include <fstream>
 
 using Trila::Trilateration;
-Eigen::Vector3d Trilateration::PosiCalcu(const PosDataVec3d &uwb_input) {
+using Trila::StationData;
+using Trila::PosDataVec3d;
+using Trila::PosData3d;
+
+Eigen::Vector3d Trilateration::PosiCalcu(const std::vector<double> &range) {
 
     Eigen::Vector3d location;
     int n, rows;
+    
+    for (size_t k = 0; k < range.size(); k++) {
+        uwb_input[k]._dis = range[k];
+    }
 
     if (uwb_input.size() < 3) {
         std::cout << "The quantity of stations is not enough" << std::endl;
@@ -43,4 +52,23 @@ Eigen::Vector3d Trilateration::PosiCalcu(const PosDataVec3d &uwb_input) {
     }
     location = m.jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(result);
     return location;
+}
+
+void Trilateration::ReadPosi(std::string file_name) {
+    
+    std::fstream fins(file_name, std::fstream::in);
+    if (fins.is_open()) {
+        std::string line;
+        while (getline(fins, line)){
+            std::stringstream ss(line);
+            double x, y, z;
+            ss >> x >> y >> z;
+            PosData3d uwb_in(Eigen::Vector3d(x, y, z), 0);
+            uwb_input.push_back(uwb_in);
+        }        
+        std::cout << "UWB positions got" << std::endl;
+    } else {
+        std::cerr << "I don't have UWB position" << std::endl;
+    }
+    fins.close();
 }

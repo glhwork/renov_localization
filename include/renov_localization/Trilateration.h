@@ -1,10 +1,12 @@
 #ifndef TRILATERATION_H
 #define TRILATERATION_H
+#endif
 
 
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <string>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/SVD>
 
@@ -23,11 +25,14 @@ typedef std::vector<PosData3d> PosDataVec3d;
 
 class Trilateration {
  public:
-    Trilateration() { }
+    Trilateration(std::string file) { 
+        ReadPosi(file);
+    }
     ~Trilateration() { }
-    Eigen::Vector3d PosiCalcu(const PosDataVec3d &uwb_input);
+    Eigen::Vector3d PosiCalcu(const std::vector<double> &range);
+    void ReadPosi(std::string file_name);
+ private:
+    PosDataVec3d uwb_input;
 };
 
 }
-
-#endif
