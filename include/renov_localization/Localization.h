@@ -2,14 +2,14 @@
 #define LOCALIZATION_H
 
 #include <cmath>
-#include <Eigen>
+#include <eigen3/Eigen/Dense>
 
 class Localization {
  public:
     Localization();
     virtual ~Localization() { };
-    void Localization::KalmanFilter();
-    void Localization::TimeOfAdvent();
+    void KalmanFilter();
+    void TimeOfAdvent();
 
  private:
     /* data */

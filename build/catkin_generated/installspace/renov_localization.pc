@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: renov_localization
+Description: Description of renov_localization
+Version: 0.0.0
+Cflags: -I/usr/local/include
+Libs: -L/usr/local/lib -lrenov_localization
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/glh/renov_ws/src/renov_localization/build/devel
+
+Name: renov_localization
+Description: Description of renov_localization
+Version: 0.0.0
+Cflags: -I/home/glh/renov_ws/src/renov_localization/include
+Libs: -L/home/glh/renov_ws/src/renov_localization/build/devel/lib -lrenov_localization
+Requires: 

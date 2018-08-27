@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/renov_localization/Trilateration.h
+iostream
+-
+vector
+-
+cmath
+-
+eigen3/Eigen/Dense
+-
+
+/home/glh/renov_ws/src/renov_localization/src/trila_test.cpp
+renov_localization/Trilateration.h
+/home/glh/renov_ws/src/renov_localization/src/renov_localization/Trilateration.h
+

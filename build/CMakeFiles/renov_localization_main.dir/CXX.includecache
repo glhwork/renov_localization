@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/renov_localization/Localization.h
+cmath
+-
+eigen3/Eigen/Dense
+-
+
+/home/glh/renov_ws/src/renov_localization/src/main.cpp
+renov_localization/Localization.h
+/home/glh/renov_ws/src/renov_localization/src/renov_localization/Localization.h
+
