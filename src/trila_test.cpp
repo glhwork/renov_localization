@@ -1,13 +1,18 @@
 #include "renov_localization/Trilateration.h"
 
-int main(int argc, char** argv)
-{
+using Trila::Trilateration;
+
+int main(int argc, char** argv) {
+
     ros::init(argc, argv, "localizer");
     ros::NodeHandle n;
 
-    ros::Subscriber sub = n.subscribe("range", 1000, );
+    std::string data_path = "/home/george/catkin_ws/src/renov_localization/data/uwb_position.txt";
+    Trilateration localize(data_path, n);
+
+    ros::Subscriber uwb_sub = n.subscribe("station_range", 100, &Trilateration::PosiCalcu, &localize);
     
-    
+    ros::spin();
 
     return 0;
 }
