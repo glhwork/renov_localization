@@ -9,9 +9,20 @@ find_package(catkin REQUIRED
   rospy
   std_msgs
   geometry_msgs
+  message_generation
 )
 
 find_package(Eigen3 REQUIRED)
+
+add_message_files (
+  FILES
+  uwb_info.msg
+)
+
+generate_messages (
+  DEPENDENCIES
+  std_msgs
+)
 
 include_directories(
   include
@@ -21,7 +32,7 @@ include_directories(
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs
+  CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs message_runtime
 )
 
 add_library(test_lib

@@ -13,19 +13,16 @@ Trilateration::Trilateration(std::string file_name, ros::NodeHandle n) {
 
 }
 
-void Trilateration::PosiCalcu(const geometry_msgs::Point &range) {
+void Trilateration::PosiCalcu(const renov_localization::uwb_info &range) {
 
     Eigen::Vector3d location;
     int n, rows;
-    
-    // for (size_t k = 0; k < range.size(); k++) {
-    //     _uwb_input[k]._dis = range[k];
-    // }
 
     if (_uwb_input.size() < 3) {
         std::cout << "The quantity of stations is not enough" << std::endl;
     }
 
+    // "n" refers to quantity of UWB stations
     // "rows" refers to the quantity of equations
     n = _uwb_input.size();
     rows = n*(n-1) / 2;
@@ -66,10 +63,11 @@ void Trilateration::PosiCalcu(const geometry_msgs::Point &range) {
 
     _posi_pub.publish(coordinates);
 
-    std::cout << "x : " << coordinates.x << "  "
+    std::cout << "The location is [ "
+              << "x : " << coordinates.x << "  "
               << "y : " << coordinates.y << "  " 
-              << "z : " << coordinates.z << std::endl;
-              
+              << "z : " << coordinates.z << " ]" << std::endl;
+
 }
 
 void Trilateration::ReadPosi(std::string file_name) {
@@ -77,7 +75,7 @@ void Trilateration::ReadPosi(std::string file_name) {
     std::fstream fins(file_name, std::fstream::in);
     if (fins.is_open()) {
         std::string line;
-        while (getline(fins, line)){
+        while (getline(fins, line)) {
             std::stringstream ss(line);
             double x, y, z;
             ss >> x >> y >> z;
