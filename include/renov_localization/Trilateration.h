@@ -33,7 +33,7 @@ class Trilateration {
  public:
     Trilateration(std::string file_name, ros::NodeHandle n);
     ~Trilateration() { }
-    void PosiCalcu(const renov_localization::uwb_info &range);
+    void PosiCalcu(/*const renov_localization::uwb_info &range*/);
     void ReadPosi(std::string file_name);
  private:
     PosDataVec3d _uwb_input;

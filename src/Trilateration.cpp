@@ -13,10 +13,11 @@ Trilateration::Trilateration(std::string file_name, ros::NodeHandle n) {
 
 }
 
-void Trilateration::PosiCalcu(const renov_localization::uwb_info &range) {
+void Trilateration::PosiCalcu(/*const renov_localization::uwb_info &range*/) {
 
     Eigen::Vector3d location;
     int n, rows;
+    int count = 0;
 
     if (_uwb_input.size() < 3) {
         std::cout << "The quantity of stations is not enough" << std::endl;
@@ -45,15 +46,27 @@ void Trilateration::PosiCalcu(const renov_localization::uwb_info &range) {
             z2 = _uwb_input[j]._pos(2);
             d2 = _uwb_input[j]._dis;
 
-            m << x1 - x2,
-                 y1 - y2,
-                 z1 - z2;
-            result << (pow(x1, 2) - pow(x2, 2) +
-                       pow(y1, 2) - pow(y2, 2) +
-                       pow(z1, 2) - pow(z2, 2) +
-                       pow(d2, 2) - pow(d1, 2)) / 2;
+            m(count, 0) = x1 - x2;
+            m(count, 1) = y1 - y2;
+	        m(count, 2) = z1 - z2;
+            result(count) = (pow(x1, 2) - pow(x2, 2) +
+                       	     pow(y1, 2) - pow(y2, 2) +
+                             pow(z1, 2) - pow(z2, 2) +
+                             pow(d2, 2) - pow(d1, 2)) / 2;
+	        count++;
         }    
-    }
+    }	
+    // std::cout << m << std::endl << std::endl;
+
+    // Eigen::JacobiSVD<Eigen::MatrixXd> svd(m, Eigen::ComputeThinU | Eigen::ComputeThinV);
+    // Eigen::MatrixXd U = svd.matrixU();
+    // Eigen::MatrixXd V = svd.matrixV();
+    // Eigen::MatrixXd Vt = V.transpose();
+    
+    // std::cout << "The singular values are : " << svd.singularValues() << std::endl
+	//       << U << std::endl << std::endl
+  	//       << V << std::endl << std::endl;
+
     location = m.jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(result);
 
     geometry_msgs::Point coordinates;
